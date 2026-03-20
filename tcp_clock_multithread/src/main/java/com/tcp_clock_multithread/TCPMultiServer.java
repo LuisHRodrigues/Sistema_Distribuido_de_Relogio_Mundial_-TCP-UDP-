@@ -90,13 +90,15 @@ public class TCPMultiServer {
                 System.out.printf("[%s] Região solicitada por %s: %s%n",
                         threadName, clientInfo, regionId);
 
+                Thread.sleep(7000);
+
                 String response = buildResponse(regionId);
                 out.println(response);
 
                 System.out.printf("[%s] Resposta enviada para %s: %s%n",
                         threadName, clientInfo, response);
 
-            } catch (IOException e) {
+            } catch (IOException | InterruptedException e) {
                 System.err.printf("[%s] Erro ao atender %s: %s%n",
                         threadName, clientInfo, e.getMessage());
             }

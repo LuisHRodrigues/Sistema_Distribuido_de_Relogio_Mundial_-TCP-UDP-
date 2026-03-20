@@ -8,7 +8,7 @@ import java.util.Scanner;
  * Cliente TCP do Sistema Distribuído de Relógio Mundial.
  *
  * Abre uma conexão com o servidor TCP, envia o ID de uma região geográfica
- * e exibe a data/hora retornada — ou a mensagem de erro emitida pelo servidor.
+ * e exibe a data/hora retornada ou a mensagem de erro emitida pelo servidor.
  *
  * @author Luis Henrique Rodrigues de Oliveira
  * @version 1.0

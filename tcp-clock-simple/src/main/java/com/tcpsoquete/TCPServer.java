@@ -62,11 +62,13 @@ public class TCPServer {
             String regionId = in.readLine();
             System.out.println("[TCP-Single] Região solicitada: " + regionId);
 
+            Thread.sleep(6000); // simula trabalho pesado
+
             String response = buildResponse(regionId);
             out.println(response);
             System.out.println("[TCP-Single] Resposta enviada: " + response);
 
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             System.err.println("[TCP-Single] Erro ao atender cliente: " + e.getMessage());
         }
     }
