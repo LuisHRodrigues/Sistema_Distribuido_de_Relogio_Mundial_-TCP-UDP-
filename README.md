@@ -4,11 +4,11 @@
 
 Implementação de comunicação entre processos via Sockets em Java, cobrindo três versões progressivas:
 
-| Versão | Protocolo | Modelo |
-|--------|-----------|--------|
-| Parte 1 | UDP | Não orientado à conexão, com timeout de 5 s no cliente |
-| Parte 2 | TCP | Single-thread, atendimento sequencial |
-| Parte 3 | TCP | Multithread, atendimento concorrente |
+| Versão  | Protocolo | Modelo                                                 |
+| ------- | --------- | ------------------------------------------------------ |
+| Parte 1 | UDP       | Não orientado à conexão, com timeout de 5 s no cliente |
+| Parte 2 | TCP       | Single-thread, atendimento sequencial                  |
+| Parte 3 | TCP       | Multithread, atendimento concorrente                   |
 
 O cliente envia um ID de região geográfica (ex: `America/Sao_Paulo`) e recebe a data/hora local daquela zona formatada via `java.time.ZonedDateTime`, ou uma mensagem de erro para regiões inválidas.
 
@@ -17,17 +17,16 @@ O cliente envia um ID de região geográfica (ex: `America/Sao_Paulo`) e recebe 
 ## Estrutura de Pastas
 
 ```
-world-clock/
-├── udp/
-│   └── src/worldclock/
-│       ├── UDPServer.java
-│       └── UDPClient.java
-├── tcp-single/
-│   └── src/worldclock/
+├── udp-clock/
+│   └── src/main/java/com/soquetes/
+│        ├── UDPServer.java
+│        └── UDPClient.java
+├── tcp-clock-simple/
+│   └── src/main/java/com/tcpsoquete/
 │       ├── TCPServer.java
 │       └── TCPClient.java
-└── tcp-multi/
-    └── src/worldclock/
+└── tcp_clock_multithread/
+    └── src/main/java/com/tcp_clock_multithread/
         ├── TCPMultiServer.java
         └── TCPMultiClient.java
 ```
@@ -96,11 +95,11 @@ Assim que o `accept()` retorna, o servidor cria uma `Thread` dedicada e a delega
 
 ### Comparação Direta
 
-| Cenário | Single-Thread | Multithread |
-|---------|--------------|-------------|
-| 1 cliente | Idêntico | Idêntico |
-| 10 clientes simultâneos | Espera acumulada | Atendimento paralelo |
-| Operação lenta no servidor | Bloqueia todos os demais | Isola o impacto em 1 thread |
-| Risco de Race Condition | Nenhum (1 thread) | Possível se houver estado compartilhado mutável |
+| Cenário                    | Single-Thread            | Multithread                                     |
+| -------------------------- | ------------------------ | ----------------------------------------------- |
+| 1 cliente                  | Idêntico                 | Idêntico                                        |
+| 10 clientes simultâneos    | Espera acumulada         | Atendimento paralelo                            |
+| Operação lenta no servidor | Bloqueia todos os demais | Isola o impacto em 1 thread                     |
+| Risco de Race Condition    | Nenhum (1 thread)        | Possível se houver estado compartilhado mutável |
 
 A Versão 3 resolve o gargalo de serialização da Versão 2 ao custo de maior uso de memória (cada Thread consome sua própria pilha) e da necessidade de sincronização caso recursos compartilhados sejam introduzidos posteriormente.
