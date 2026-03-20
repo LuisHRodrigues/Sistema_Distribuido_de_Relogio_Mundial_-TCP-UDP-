@@ -40,43 +40,40 @@ O cliente envia um ID de região geográfica (ex: `America/Sao_Paulo`) e recebe 
 ### Parte 1: UDP (porta 9000)
 
 ```bash
-# Compilar
-cd udp
-javac -d out src/worldclock/UDPServer.java src/worldclock/UDPClient.java
+# Entrar dentro da pasta correta
+cd udp-clock/src/main/java/com/soquetes
 
 # Terminal 1: servidor
-java -cp out worldclock.UDPServer
+java -cp out UDPServer.java
 
 # Terminal 2: cliente
-java -cp out worldclock.UDPClient
+java -cp out UDPClient.java
 ```
 
 ### Parte 2: TCP Single-Thread (porta 9001)
 
 ```bash
-# Compilar
-cd tcp-single
-javac -d out src/worldclock/TCPServer.java src/worldclock/TCPClient.java
+# Entrar dentro da pasta correta
+cd tcp-clock-simple/src/main/java/com/tcpsoquete
 
 # Terminal 1: servidor
-java -cp out worldclock.TCPServer
+java -cp out TCPServer.java
 
 # Terminal 2: cliente
-java -cp out worldclock.TCPClient
+java -cp out TCPClient.java
 ```
 
 ### Parte 3: TCP Multithread (porta 9002)
 
 ```bash
-# Compilar
-cd tcp-multi
-javac -d out src/worldclock/TCPMultiServer.java src/worldclock/TCPMultiClient.java
+# Entrar dentro da pasta correta
+cd tcp_clock_multithread/src/main/java/com/tcp_clock_multithread
 
 # Terminal 1: servidor
-java -cp out worldclock.TCPMultiServer
+java -cp out TCPMultiServer.java
 
 # Terminais 2, 3, 4... (abra quantos quiser simultaneamente)
-java -cp out worldclock.TCPMultiClient
+java -cp out TCPMultiClient.java
 ```
 
 > Para demonstrar a concorrência da Parte 3, abra vários terminais de cliente ao mesmo tempo e observe no console do servidor que cada conexão recebe uma Thread distinta (ex: `Thread-0`, `Thread-1`, `Thread-2`...).
